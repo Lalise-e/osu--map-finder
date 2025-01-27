@@ -10,6 +10,21 @@ function createRadio(fieldName, options, filter){
 }
 function createCheckBox(fieldName, options, filter){
     //Options should be a 1 dimensional array of strings where each item is the name of a checkbox
+    fieldName = `form-checkbox-${fieldName}` 
+    const field = createFieldset(fieldName)
+    options.forEach(element => {
+        const name = `${fieldName}-${element}`
+        const label = document.createElement("label");
+        label.setAttribute("for", `${name}`)
+        label.innerText = element;
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox")
+        checkbox.setAttribute("id", `${name}`)
+        checkbox.setAttribute("name", `${name}`);
+        field.appendChild(label);
+        field.appendChild(checkbox);
+    });
+    searchForm.appendChild(field);
 }
 function createTextBox(fieldName, filter){
 
