@@ -1,3 +1,5 @@
+const searchForm = document.querySelector("#search-form")
+
 //Functions to create form fields, the fieldName is the name that will be displayed and used in html
 //filter is a function that will return true or false depending on whether a map passes it or not.
 function createRadio(fieldName, options, filter){
