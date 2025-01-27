@@ -15,3 +15,9 @@ function createTextBox(fieldName, filter){
 function createRangeSlider(fieldName, min, max, step, filter){
 
 }
+function createFieldset(name, filter){
+    const field = document.createElement("fieldset");
+    field.setAttribute("name", name);
+    field.setAttribute("id", name);
+    return field;
+}
