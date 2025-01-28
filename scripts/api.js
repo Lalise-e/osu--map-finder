@@ -18,7 +18,7 @@ async function get(path, parameters){
         await new Promise(res => {setTimeout(res, 100)}); //waits 100ms as to not freeze the browser
     requests++;
     const item = await (await fetch(url)).json();
-    setTimeout(() => {console.log(requests); requests--;}, rateLimitPeriod)
+    setTimeout(() => requests--, rateLimitPeriod)
     return item;
 }
 
