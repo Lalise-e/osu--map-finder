@@ -1,6 +1,6 @@
 //file wide constants.
 import { API_KEY } from "./key.js";
-export { getBeatmaps, intToModString, modStringToInt, getUser };
+export { initialize, getBeatmaps, intToModString, modStringToInt, getUser };
 const apiEndpoint = "https://osu.ppy.sh/api";
 const rateLimit = 1000;
 const rateLimitPeriod = 60000; //1 min
@@ -20,6 +20,15 @@ async function get(path, parameters){
     const item = await (await fetch(url)).json();
     setTimeout(() => requests--, rateLimitPeriod)
     return item;
+}
+async function initialize() {
+    const path = `${apiEndpoint}/get_beatmaps`
+    let maps = await get(path, []);
+    maps.forEach(map => {
+        if(maxBeatmapSetID < Number(map.beatmapset_id))
+            maxBeatmapSetID = Number(map.beatmapset_id);
+    });
+}
 }
 
 //map functions

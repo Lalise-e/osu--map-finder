@@ -1,3 +1,4 @@
+import { getBeatmaps, initialize } from "./api.js";
 const searchForm = document.querySelector("#search-form")
 
 //Functions to create form fields, the fieldName is the name that will be displayed and used in html
@@ -38,3 +39,5 @@ function createFieldset(name, filter){
     field.setAttribute("id", name);
     return field;
 }
+
+initialize();
