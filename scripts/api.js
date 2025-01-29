@@ -29,6 +29,34 @@ async function initialize() {
             maxBeatmapSetID = Number(map.beatmapset_id);
     });
 }
+async function binarySetSearch(compare, min = 1, max = maxBeatmapSetID) {
+    //compare will given a map, it should return -1 if the index is less than the correct one,
+    //1 if it is more than the correct one
+    //and 0 if it's correct.
+    let searchID = Math.ceil((min + max) / 2);
+    let map = undefined;
+    let increment = function(number){return number + 1;};
+    while(map === undefined){
+        [map] = await get(`${apiEndpoint}/get_beatmaps`, [["s", searchID]]);
+        if(map === undefined)
+            searchID = increment(searchID);
+        if(searchID >= max){
+            increment = function(number){return number - 1;};
+            searchID = Math.ceil((min + max) / 2);
+            searchID = increment(searchID);
+        }
+    }
+    switch (await compare(map)){
+        case -1:
+            min = searchID;
+            break;
+        case 1:
+            max = searchID;
+            break;
+        case 0:
+            return searchID;
+    }
+    return await binarySetSearch(compare, min, max);
 }
 
 //map functions
