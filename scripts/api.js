@@ -3,6 +3,7 @@ import { API_KEY } from "./key.js";
 export { initialize, getBeatmaps, intToModString, modStringToInt, getUser };
 const apiEndpoint = "https://osu.ppy.sh/api";
 let maxBeatmapSetID = 0;
+const rateLimit = 120;
 const rateLimitPeriod = 60000; //1 min
 let requests = 0;
 
