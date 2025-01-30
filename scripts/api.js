@@ -23,7 +23,7 @@ async function get(path, parameters){
 }
 async function initialize() {
     const path = `${apiEndpoint}/get_beatmaps`
-    let maps = await get(path, []);
+    let maps = await get(path, [["limit", 200]]);
     maps.forEach(map => {
         if(maxBeatmapSetID < Number(map.beatmapset_id))
             maxBeatmapSetID = Number(map.beatmapset_id);
