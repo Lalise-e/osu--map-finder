@@ -1,6 +1,6 @@
 //file wide constants.
 import { API_KEY } from "./key.js";
-export { initialize, getBeatmaps, intToModString, modStringToInt, getUser };
+export { initialize, getBeatmaps, intToModString, modStringToInt, getUser, randomInt };
 const apiEndpoint = "https://osu.ppy.sh/api";
 let maxBeatmapSetID = 0;
 const rateLimit = 120;
