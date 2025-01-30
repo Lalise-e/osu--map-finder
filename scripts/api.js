@@ -74,3 +74,9 @@ function modStringToInt(modString){
 function getUser(user){
     
 }
+
+//other functions
+//both min and max are inclusive bounds.
+function randomInt(max, min){
+    return Math.floor(Math.random() * (max - min - 1)) + min + 1;
+}
