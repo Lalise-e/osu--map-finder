@@ -28,6 +28,29 @@ async function initialize() {
         if(maxBeatmapSetID < Number(map.beatmapset_id))
             maxBeatmapSetID = Number(map.beatmapset_id);
     });
+    function conscructYearCompare(year){
+        return async function(map) {
+            const checkingDate = new Date(map.submit_date + " UTC+0");
+            if (checkingDate.getUTCFullYear() > year)
+                return 1;
+            if (checkingDate.getUTCFullYear() < year)
+                return -1;
+    
+            let difference = 1;
+            let previousMap = undefined;
+            while(previousMap === undefined){
+                [previousMap] = await get(path, [["s", Number(map.beatmapset_id) - difference]]);
+                difference++;
+            }
+    
+            if(new Date(previousMap.submit_date + " UTC+0").getUTCFullYear() === (year - 1))
+                return 0;
+            return 1;
+        }
+    }
+    for(let i = 2008; i < 2008; i++){
+        new Promise(async function(){console.log(`${i}: ${await binarySetSearch(conscructYearCompare(i))}`)});
+    }
 }
 async function binarySetSearch(compare, min = 1, max = maxBeatmapSetID) {
     //compare will given a map, it should return -1 if the index is less than the correct one,
