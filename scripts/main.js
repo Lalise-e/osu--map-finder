@@ -93,7 +93,7 @@ async function createSetArticle(mapSet){
     <a href="https://osu.ppy.sh/beatmapsets/${map.beatmapset_id}" target="_blank" class="mapset-title">${map.title}</a>
     <p class="mapset-artist">${map.artist}</p>
     <p class="mapset-status">${status}</p>
-    <p class="mapset-submit">Submited: <time datetime="${map.submit_date} UTC+0">${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}</time></p>
+    <p class="mapset-submit">Submited: <time datetime="${map.submit_date} UTC+0">${date.getUTCFullYear()}-${date.getUTCMonth() + 1 /*apparently the month is 0 indexed*/}-${date.getUTCDate()}</time></p>
     <a href="osu://s/${map.beatmapset_id}" target="_blank" class="mapset-download">Download!</a>
 </main>
 <footer>
