@@ -1,5 +1,15 @@
 import { getBeatmaps, initialize } from "./api.js";
-const searchForm = document.querySelector("#search-form")
+const searchForm = document.querySelector("#search-form");
+const resultList = document.querySelector("#result-list");
+
+//Events
+async function searchSubmit(e){
+    e.preventDefault();
+    const mapSets = await getBeatmaps([], 2);
+    mapSets.forEach(e =>{
+        createSetArticle(e);
+    })
+}
 
 //Functions to create form fields, the fieldName is the name that will be displayed and used in html
 //filter is a function that will return true or false depending on whether a map passes it or not.
@@ -40,4 +50,65 @@ function createFieldset(name, filter){
     return field;
 }
 
+async function createSetArticle(mapSet){
+    if(mapSet.length === 0)
+        return;
+    const [map] = mapSet;
+    const diffListID = `article-difficulties-${map.beatmapset_id}`;
+    let status = "";
+    const date = new Date(map.submit_date + " UTC+0");
+    switch(map.approved){
+        case "4":
+            status = "Loved!"
+            break;
+        case "3":
+            status = "Qualified!";
+            break;
+        case "2":
+            status = "Approved!";
+            break;
+        case "1":
+            status = "Ranked!";
+            break;
+        case "0":
+            status = "Pending";
+            break;
+        case "-1":
+            status = "Work in Progress";
+            break;
+        case "-2":
+            status = "Graveyard";
+            break;
+        default:
+            status = "???";
+            break;
+    }
+    const article = document.createElement("article");
+    article.innerHTML = 
+`<header style="background-image: url(https://assets.ppy.sh/beatmaps/${map.beatmapset_id}/covers/cover.jpg);">
+    <ul class="difficulties vertical list" id="${diffListID}">
+    </ul>
+</header>
+<main>
+    <a href="https://osu.ppy.sh/beatmapsets/${map.beatmapset_id}" target="_blank" class="mapset-title">${map.title}</a>
+    <p class="mapset-artist">${map.artist}</p>
+    <p class="mapset-status">${status}</p>
+    <p class="mapset-submit">Submited: <time datetime="${map.submit_date} UTC+0">${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}</time></p>
+    <a href="osu://s/${map.beatmapset_id}" target="_blank" class="mapset-download">Download!</a>
+</main>
+<footer>
+    <a class="mapset-creator" target="_blank" href="https://osu.ppy.sh/users/${map.creator_id}">${map.creator}</a>
+</footer>`;
+    const diffList = article.querySelector(`#${diffListID}`);
+    mapSet.forEach(e =>{
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `☆${Number(e.difficultyrating).toFixed(2)} - ${e.version}`;
+        diffList.appendChild(listItem);
+    })
+    resultList.appendChild(article);
+}
+
 initialize();
+
+//Add events
+searchForm.addEventListener('submit', searchSubmit);
