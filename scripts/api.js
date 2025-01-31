@@ -24,12 +24,15 @@ async function get(path, parameters){
     return item;
 }
 async function initialize() {
+    //We store maxBeatmapSetID so if you were hit search before this get requests finish you won't get weird results
+    maxBeatmapSetID = Number(localStorage.getItem("maxID"));
     const path = `${apiEndpoint}/get_beatmaps`
     let maps = await get(path, [["limit", 200]]);
     maps.forEach(map => {
         if(maxBeatmapSetID < Number(map.beatmapset_id))
             maxBeatmapSetID = Number(map.beatmapset_id);
     });
+    localStorage.setItem("maxID", maxBeatmapSetID);
     function conscructYearCompare(year){
         return async function(map) {
             const checkingDate = new Date(map.submit_date + " UTC+0");
