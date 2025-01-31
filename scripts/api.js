@@ -65,7 +65,7 @@ async function binarySetSearch(compare, min = 1, max = maxBeatmapSetID) {
     let map = undefined;
     let increment = function(number){return number + 1;};
     while(map === undefined){
-        [map] = await get(`${apiEndpoint}/get_beatmaps`, [["s", searchID]]);
+        map = await get(`${apiEndpoint}/get_beatmaps`, [["s", searchID]]);
         if(map === undefined)
             searchID = increment(searchID);
         if(searchID >= max){
