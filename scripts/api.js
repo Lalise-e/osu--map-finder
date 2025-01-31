@@ -5,6 +5,7 @@ const apiEndpoint = "https://osu.ppy.sh/api";
 let maxBeatmapSetID = 0;
 const rateLimit = 120;
 const rateLimitPeriod = 60000; //1 min
+const retries = 5;
 let requests = 0;
 
 //api functions
@@ -84,9 +85,35 @@ async function binarySetSearch(compare, min = 1, max = maxBeatmapSetID) {
 }
 
 //map functions
-function getBeatmaps(filters, count = 1, mapper, mode, mods = 0){
+async function getBeatmaps(filters, count = 1, mapper, mode, mods = 0){
     if(typeof(mods) === "string")
         mods = modStringToInt(mods);
+    const parameters = [];
+    const path = `${apiEndpoint}/get_beatmaps`;
+
+    const mapSets = Array(count);
+    let complete = 0;
+    for(let i = 0; i < mapSets.length; i++){
+        const iCopy = i;
+        new Promise(async () => {
+            let mapset = undefined;
+            for(let j = 0; j < retries; j++){
+                const parmCopy = Array.from(parameters);
+                parmCopy.push(["s", randomInt(maxBeatmapSetID, 1)]);
+                mapset = await get(path, parmCopy);
+                if(mapset.length > 0)
+                    j = retries;
+            }
+            mapSets[iCopy] = mapset;
+            // console.log(mapSets);
+            complete++;
+        });
+    }
+    while(count > complete){
+        await new Promise(res => {setTimeout(res, 10)}); //waits 10ms as to not freeze the browser
+    }
+    return mapSets;
+}
 function intToModString(mods){
 
 }
@@ -95,7 +122,7 @@ function modStringToInt(modString){
 }
 
 //user functions
-function getUser(user){
+async function getUser(user){
     
 }
 
