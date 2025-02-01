@@ -27,3 +27,13 @@ body{
     font-size: var(--fs-font-125);
     color: var(--clr-neutral-dark);
 }
+.list{
+    display: flex;
+}
+.vertical{
+    flex-direction: column;
+}
+.contained{
+    max-width: 1500px;
+    margin-left: clamp(2em, calc((100vw - 1500px) / 2), calc((100vw - 1500px) / 2));
+}
