@@ -91,8 +91,6 @@ article{
 }
 .mapsets{
     flex-wrap: wrap;
-    max-width: 1500px;
-    position: 50% 50%;
 }
 .mode-icon{
     fill: var(--clr-accent-700);
