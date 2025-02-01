@@ -95,7 +95,8 @@ async function createSetArticle(mapSet){
     <p class="mapset-artist">${map.artist}</p>
     <p class="mapset-status">${status}</p>
     <p class="mapset-submit">Submited: <time datetime="${map.submit_date} UTC+0">${date.getUTCFullYear()}-${date.getUTCMonth() + 1 /*apparently the month is 0 indexed*/}-${date.getUTCDate()}</time></p>
-    <a href="osu://s/${map.beatmapset_id}"<!-- this only works if you have supporter, I will add a second button for non-supporter downloads, it will just be some works --> class="mapset-download">Download!</a>
+    <a href="osu://s/${map.beatmapset_id}" class="mapset-download">Download!</a>
+    <!-- this only works if you have supporter, I will add a second button for non-supporter downloads, it will just take some work -->
 </main>
 <footer>
     <a class="mapset-creator" target="_blank" href="https://osu.ppy.sh/users/${map.creator_id}">${map.creator}</a>
