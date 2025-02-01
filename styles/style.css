@@ -25,6 +25,7 @@
 
     --sz-mode-icon: 1.2em;
     --sz-mode-icon-margin: 0.1em;
+    --sz-contained-width: 1500px;
 
     --fs-font-100: 16px;
 
@@ -126,6 +127,6 @@ article{
     width: 2em;
 }
 .contained{
-    max-width: 1500px;
-    margin: 0 max(calc((100vw - 1500px) / 2), 2em);
+    max-width: var(--sz-contained-width);
+    margin: 0 max(calc((100vw - var(--sz-contained-width)) / 2), 2em);
 }
