@@ -1,3 +1,14 @@
+@font-face {
+    font-family: Exo2;
+    src: url(./fonts/Exo2.0-Regular.otf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: Exo2;
+    src: url(./fonts/Exo2.0-Bold.otf);
+    font-weight: bold;
+}
+
 :root{
     --clr-accent-100: #181b1d;
     --clr-accent-200: #29363c;
@@ -28,6 +39,7 @@
 body{
     background-color: var(--clr-neutral-light-2);
     margin: 0;
+    font-family: Exo2, sans-serif;
     font-size: var(--fs-font-125);
     color: var(--clr-neutral-dark);
 }
