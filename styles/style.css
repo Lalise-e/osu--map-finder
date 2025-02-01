@@ -33,6 +33,72 @@ body{
 .vertical{
     flex-direction: column;
 }
+article{
+    margin: 1em;
+    min-width: 300px;
+    max-width: 600px;
+    border: 2px solid var(--clr-neutral-dark);
+    border-radius: 5px;
+    header{
+        background-size: cover;
+        background-position: center center;
+        min-height: 10em;
+    }
+}
+.difficulties{
+    margin: 0;
+    list-style: none;
+    font-size: var(--fs-font-100);
+    padding: var(--fs-font-025);
+
+    li{
+        margin-top: 0.2em;
+        overflow: hidden;
+        background-color: var(--clr-neutral-light);
+        color: var(--clr-neutral-dark);
+        align-items: center;
+        justify-content: left;
+        border-radius: 1.2em;
+        height: 1.2em;
+        width: max-content;
+        min-width: 1.2em;
+        p{
+            margin: 0;
+            white-space: nowrap;
+            padding: 0;
+            width: 0;
+            max-width: max-content;
+            transition: 0.4s;
+            transition-timing-function: ease-in-out;
+        }
+
+        svg{
+            min-height: 1em;
+            min-width: 1em;
+            height: 1em;
+            width: 1em;
+            margin: 0.1em;
+        }
+    }
+    li:hover{
+        p{
+            transition: 0.4s;
+            transition-timing-function: ease-in-out;
+            padding: 0 0.5em;
+            width: 20em;
+        }
+    }
+}
+.mapsets{
+    flex-wrap: wrap;
+    max-width: 1500px;
+    position: 50% 50%;
+}
+.mode-icon{
+    fill: var(--clr-accent-700);
+    height: 2em;
+    width: 2em;
+}
 .contained{
     max-width: 1500px;
     margin-left: clamp(2em, calc((100vw - 1500px) / 2), calc((100vw - 1500px) / 2));
