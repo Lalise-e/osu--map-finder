@@ -43,6 +43,15 @@ body{
     font-size: var(--fs-font-125);
     color: var(--clr-neutral-dark);
 }
+.page-header{
+    text-align: center;
+    background-color: var(--clr-accent-700);
+
+    h1{
+        padding: calc(var(--fs-font-200) * 2) 0;
+    }
+    
+}
 .list{
     display: flex;
 }
