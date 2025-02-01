@@ -91,6 +91,7 @@ article{
 }
 .mapsets{
     flex-wrap: wrap;
+    justify-content: center;
 }
 .mode-icon{
     fill: var(--clr-accent-700);
