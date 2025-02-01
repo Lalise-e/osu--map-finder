@@ -23,6 +23,8 @@
     --clr-neutral-light-2: #e0e0e0;
     --clr-neutral-dark: #181818;
 
+    --sz-border-width-1: 3px;
+    --sz-default-radius: 10px;
     --sz-mode-icon: 1.2em;
     --sz-mode-icon-margin: 0.1em;
     --sz-contained-width: 1500px;
@@ -63,9 +65,11 @@ article{
     background-color: var(--clr-neutral-light-1);
     margin: 1em;
     width: min(98vw, calc(var(--sz-contained-width) / 5));
-    border: 2px solid var(--clr-neutral-dark);
-    border-radius: 5px;
+    border: var(--sz-border-width-1) solid var(--clr-neutral-dark);
+    border-radius: var(--sz-default-radius);
+    overflow: hidden;
     header{
+        background-color: var(--clr-accent-400);
         background-size: cover;
         background-position: center center;
         min-height: 10em;
