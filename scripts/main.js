@@ -1,4 +1,5 @@
 import { getBeatmaps, initialize } from "./api.js";
+import { MODE_CATCH, MODE_MANIA, MODE_OSU, MODE_TAIKO } from "./modeIcons.js";
 const searchForm = document.querySelector("#search-form");
 const resultList = document.querySelector("#result-list");
 
@@ -102,7 +103,23 @@ async function createSetArticle(mapSet){
     const diffList = article.querySelector(`#${diffListID}`);
     mapSet.forEach(e =>{
         const listItem = document.createElement("li");
-        listItem.innerHTML = `☆${Number(e.difficultyrating).toFixed(2)} - ${e.version}`;
+        let modeSVG;
+        switch(e.mode){
+            case "0":
+                modeSVG = MODE_OSU;
+                break;
+            case "1":
+                modeSVG = MODE_TAIKO;
+                break;
+            case "2":
+                modeSVG = MODE_CATCH;
+                break;
+            case "3":
+                modeSVG = MODE_MANIA;
+                break;
+        }
+        listItem.classList.add("list");
+        listItem.innerHTML = `${modeSVG}<p>☆${Number(e.difficultyrating).toFixed(2)} - ${e.version}</p>`;
         diffList.appendChild(listItem);
     })
     resultList.appendChild(article);
