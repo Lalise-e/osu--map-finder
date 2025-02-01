@@ -58,6 +58,7 @@ article{
         margin-top: 0.2em;
         overflow: hidden;
         color: var(--clr-neutral-dark);
+        background-color: var(--clr-neutral-light-1);
         align-items: center;
         justify-content: left;
         border-radius: 1.2em;
