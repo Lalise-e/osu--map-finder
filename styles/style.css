@@ -12,6 +12,9 @@
     --clr-neutral-light-2: #e0e0e0;
     --clr-neutral-dark: #181818;
 
+    --sz-mode-icon: 1.2em;
+    --sz-mode-icon-margin: 0.1em;
+
     --fs-font-100: 16px;
 
     --fs-font-025: calc(var(--fs-font-100) * 0.25);
@@ -61,10 +64,10 @@ article{
         background-color: var(--clr-neutral-light-1);
         align-items: center;
         justify-content: left;
-        border-radius: 1.2em;
-        height: 1.2em;
+        border-radius: calc(var(--sz-mode-icon) / 2 + var(--sz-mode-icon-margin));
+        height: calc(var(--sz-mode-icon) + var(--sz-mode-icon-margin) * 2);
         width: max-content;
-        min-width: 1.2em;
+        min-width: calc(var(--sz-mode-icon) + var(--sz-mode-icon-margin) * 2);
         p{
             margin: 0;
             white-space: nowrap;
@@ -76,11 +79,11 @@ article{
         }
 
         svg{
-            min-height: 1em;
-            min-width: 1em;
-            height: 1em;
-            width: 1em;
-            margin: 0.1em;
+            min-height: var(--sz-mode-icon);
+            min-width: var(--sz-mode-icon);
+            height: var(--sz-mode-icon);
+            width: var(--sz-mode-icon);
+            margin: var(--sz-mode-icon-margin);
         }
     }
     li:hover{
