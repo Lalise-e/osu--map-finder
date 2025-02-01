@@ -43,6 +43,7 @@ article{
         background-size: cover;
         background-position: center center;
         min-height: 10em;
+        border-bottom: 2px  solid var(--clr-neutral-dark);
     }
 }
 .difficulties{
@@ -50,7 +51,7 @@ article{
     list-style: none;
     font-size: var(--fs-font-100);
     padding: var(--fs-font-025);
-
+    
     li{
         margin-top: 0.2em;
         overflow: hidden;
