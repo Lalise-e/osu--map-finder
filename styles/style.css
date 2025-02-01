@@ -103,5 +103,5 @@ article{
 }
 .contained{
     max-width: 1500px;
-    margin-left: clamp(2em, calc((100vw - 1500px) / 2), calc((100vw - 1500px) / 2));
+    margin: 0 max(calc((100vw - 1500px) / 2), 2em);
 }
