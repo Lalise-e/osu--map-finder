@@ -1,0 +1,23 @@
+:root{
+    --clr-accent-100: #181b1d;
+    --clr-accent-200: #29363c;
+    --clr-accent-300: #355260;
+    --clr-accent-400: #3c6f89;
+    --clr-accent-500: #3e8fb7;
+    --clr-accent-600: #52a8d3;
+    --clr-accent-700: #70bee6;
+    --clr-accent-800: #92d3f3;
+
+    --clr-neutral-light: #f0f0f0;
+    --clr-neutral-dark: #181818;
+
+    --fs-font-100: 16px;
+
+    --fs-font-025: calc(var(--fs-font-100) * 0.25);
+    --fs-font-050: calc(var(--fs-font-100) * 0.5);
+    --fs-font-075: calc(var(--fs-font-100) * 0.75);
+    --fs-font-125: calc(var(--fs-font-100) * 1.25);
+    --fs-font-150: calc(var(--fs-font-100) * 1.5);
+    --fs-font-175: calc(var(--fs-font-100) * 1.75);
+    --fs-font-200: calc(var(--fs-font-100) * 2);
+}
