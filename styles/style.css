@@ -172,7 +172,7 @@ article{
     justify-content: center;
 }
 .mode-icon{
-    fill: var(--clr-accent-700);
+    fill: var(--clr-neutral-dark);
     height: 2em;
     width: 2em;
 }
