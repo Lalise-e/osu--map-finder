@@ -1,5 +1,10 @@
 @font-face {
     font-family: Exo2;
+    src: url("./fonts/Exo2.0-Light.otf");
+    font-weight: 300;
+}
+@font-face {
+    font-family: Exo2;
     src: url(./fonts/Exo2.0-Regular.otf);
     font-weight: normal;
 }
@@ -48,6 +53,7 @@ body{
 }
 button{
     font-family: Exo2, sans-serif;
+    font-weight: 300;
     background-color: var(--clr-accent-700);
     border: var(--sz-border-width-1) solid var(--clr-neutral-dark);
     border-radius: var(--sz-default-radius);
