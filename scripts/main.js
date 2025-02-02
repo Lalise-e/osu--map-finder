@@ -86,7 +86,7 @@ async function createSetArticle(mapSet){
     }
     const article = document.createElement("article");
     article.innerHTML = 
-`<header style="background-image: url(https://assets.ppy.sh/beatmaps/${map.beatmapset_id}/covers/cover.jpg);">
+`<header style="background-image: url(https://assets.ppy.sh/beatmaps/${map.beatmapset_id}/covers/list@2x.jpg);">
     <ul class="difficulties vertical list" id="${diffListID}">
     </ul>
 </header>
