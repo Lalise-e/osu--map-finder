@@ -85,18 +85,23 @@ async function createSetArticle(mapSet){
             break;
     }
     const article = document.createElement("article");
+    article.classList.add(["list"])
+    article.classList.add(["vertical"]);
     article.innerHTML = 
 `<header style="background-image: url(https://assets.ppy.sh/beatmaps/${map.beatmapset_id}/covers/list@2x.jpg);">
     <ul class="difficulties vertical list" id="${diffListID}">
     </ul>
 </header>
-<main class="mapset-info">
+<main class="mapset-info list vertical">
     <a href="https://osu.ppy.sh/beatmapsets/${map.beatmapset_id}" target="_blank" class="mapset-title"><h3>${map.title}</h3></a>
     <p class="mapset-artist">by ${map.artist}</p>
-    <p class="mapset-status">Status: ${status}</p>
     <p class="mapset-submit">Submited: <time datetime="${map.submit_date} UTC+0">${date.getUTCFullYear()}-${date.getUTCMonth() + 1 /*apparently the month is 0 indexed*/}-${date.getUTCDate()}</time></p>
-    <a href="osu://s/${map.beatmapset_id}" class="mapset-download">Download!</a>
-    <!-- this only works if you have supporter, I will add a second button for non-supporter downloads, it will just take some work -->
+    <p class="mapset-status">Status: ${status}</p>
+    <div class="mapset-downloads">
+        <button type="button" name="download-direct-${map.beatmapset_id}">Download Direct!</button>
+        <button type="button" name="download-${map.beatmapset_id}">Download</button>
+    </div>
+    <!-- <a href="osu://s/${map.beatmapset_id}" class="mapset-download">Download!</a> -->
 </main>
 <footer>
     <a class="mapset-creator" target="_blank" href="https://osu.ppy.sh/users/${map.creator_id}">${map.creator}</a>

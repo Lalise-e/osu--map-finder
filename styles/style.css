@@ -144,6 +144,30 @@ article{
         }
     }
 }
+.mapset-info{
+    /* This is just an arbitrarily large number, to make sure all the main section in a row are the same height */
+    flex-grow: 10;
+    font-size: var(--fs-font-125);
+    padding: 0.3em;
+    border-bottom: var(--sz-border-width-1) solid var(--clr-neutral-dark);
+    .mapset-title{
+        color: var(--clr-accent-300);
+        text-decoration: underline;
+        h3{
+            margin: 0em;
+        }
+    }
+    .mapset-artist{
+        font-size: var(--fs-font-100);
+        margin-top: 0.1em;
+    }
+    .mapset-submit{
+        margin: auto 0 0 0;
+    }
+    .mapset-status{
+        margin: 0.4em 0 0.8em;
+    }
+}
 .mapsets{
     flex-wrap: wrap;
     justify-content: center;
