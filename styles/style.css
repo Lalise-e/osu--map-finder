@@ -61,9 +61,7 @@ button{
     transition: ease-in-out 0.1s;
 }
 button:hover{
-    background-color: var(--clr-neutral-dark);
-    color: var(--clr-accent-700);
-    border-color: var(--clr-accent-700);
+    background-color: var(--clr-neutral-light-1);
 }
 button:active{
     background-color: var(--clr-accent-700);
