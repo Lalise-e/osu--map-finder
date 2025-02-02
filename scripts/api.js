@@ -1,12 +1,13 @@
 //file wide constants.
 import { API_KEY } from "./key.js";
-export { initialize, getBeatmaps, intToModString, modStringToInt, getUser, randomInt };
+export { initialize, getBeatmaps, intToModString, modStringToInt, getUser, randomInt, markDownload };
 const apiEndpoint = "https://osu.ppy.sh/api";
 let maxBeatmapSetID = 0;
 const rateLimit = 120;
 const rateLimitPeriod = 60000; //1 min
 const retries = 5;
 let requests = 0;
+let downloads = [];
 
 //api functions
 async function get(path, parameters){
@@ -26,6 +27,12 @@ async function get(path, parameters){
 async function initialize() {
     //We store maxBeatmapSetID so if you were hit search before this get requests finish you won't get weird results
     maxBeatmapSetID = Number(localStorage.getItem("maxID"));
+    downloads = localStorage.getItem("downloads");
+    console.log(downloads);
+    if(downloads === null)
+        downloads = [];
+    else
+        downloads = JSON.parse(downloads);
     const path = `${apiEndpoint}/get_beatmaps`
     let maps = await get(path, [["limit", 200]]);
     maps.forEach(map => {
@@ -116,6 +123,12 @@ async function getBeatmaps(filters, count = 1, mapper, mode, mods = 0){
         await new Promise(res => {setTimeout(res, 10)}); //waits 10ms as to not freeze the browser
     }
     return mapSets;
+}
+function markDownload(mapsetID){
+    if(downloads.indexOf(mapsetID) !== -1)
+        return;
+    downloads.push(mapsetID);
+    localStorage.setItem("downloads", JSON.stringify(downloads))
 }
 function intToModString(mods){
 
