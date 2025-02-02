@@ -1,4 +1,4 @@
-import { getBeatmaps, initialize } from "./api.js";
+import { getBeatmaps, initialize, markDownload } from "./api.js";
 import { MODE_CATCH, MODE_MANIA, MODE_OSU, MODE_TAIKO } from "./modeIcons.js";
 const searchForm = document.querySelector("#search-form");
 const resultList = document.querySelector("#result-list");
@@ -10,6 +10,10 @@ async function searchSubmit(e){
     mapSets.forEach(e =>{
         createSetArticle(e);
     })
+}
+async function downloadMap(beatmapsetID){
+    markDownload(beatmapsetID);
+    window.open(`osu://dl/${beatmapsetID}`, "_self")
 }
 
 //Functions to create form fields, the fieldName is the name that will be displayed and used in html
@@ -107,6 +111,8 @@ async function createSetArticle(mapSet){
     <img src="https://a.ppy.sh/${map.creator_id}" class="mapset-creator-pfp">
     <a class="mapset-creator-name" target="_blank" href="https://osu.ppy.sh/users/${map.creator_id}">${map.creator}</a>
 </footer>`;
+    article.querySelector(`#download-${map.beatmapset_id}`).addEventListener("click", () => {downloadMap(map.beatmapset_id);});
+
     const diffList = article.querySelector(`#${diffListID}`);
     mapSet.forEach(e =>{
         const listItem = document.createElement("li");

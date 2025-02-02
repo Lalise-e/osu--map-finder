@@ -170,7 +170,7 @@ article{
     }
     .mapset-downloads{
         font-size: var(--fs-font-100);
-        justify-content: space-evenly;
+        justify-content: start;
         button{
             font-size: var(--fs-font-100);
         }
