@@ -97,9 +97,9 @@ async function createSetArticle(mapSet){
     <p class="mapset-artist">by ${map.artist}</p>
     <p class="mapset-submit">Submited: <time datetime="${map.submit_date} UTC+0">${date.getUTCFullYear()}-${date.getUTCMonth() + 1 /*apparently the month is 0 indexed*/}-${date.getUTCDate()}</time></p>
     <p class="mapset-status">Status: ${status}</p>
-    <div class="mapset-downloads">
-        <button type="button" name="download-direct-${map.beatmapset_id}">Download Direct!</button>
-        <button type="button" name="download-${map.beatmapset_id}">Download</button>
+    <div class="mapset-downloads list">
+        <button type="button" name="download-direct-${map.beatmapset_id}" id="download-direct-${map.beatmapset_id}">Download Direct!</button>
+        <button type="button" name="download-${map.beatmapset_id}" id="download-${map.beatmapset_id}">Download</button>
     </div>
     <!-- <a href="osu://s/${map.beatmapset_id}" class="mapset-download">Download!</a> -->
 </main>
