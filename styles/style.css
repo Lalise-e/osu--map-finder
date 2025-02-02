@@ -149,7 +149,6 @@ article{
     flex-grow: 10;
     font-size: var(--fs-font-125);
     padding: 0.3em;
-    border-bottom: var(--sz-border-width-1) solid var(--clr-neutral-dark);
     .mapset-title{
         color: var(--clr-accent-300);
         text-decoration: underline;
