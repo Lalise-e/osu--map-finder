@@ -55,8 +55,20 @@ button{
     font-family: Exo2, sans-serif;
     font-weight: 300;
     background-color: var(--clr-accent-700);
+    color: var(--clr-neutral-dark);
     border: var(--sz-border-width-1) solid var(--clr-neutral-dark);
     border-radius: var(--sz-default-radius);
+    transition: ease-in-out 0.1s;
+}
+button:hover{
+    background-color: var(--clr-neutral-dark);
+    color: var(--clr-accent-700);
+    border-color: var(--clr-accent-700);
+}
+button:active{
+    background-color: var(--clr-accent-700);
+    color: var(--clr-neutral-dark);
+    border-color: var(--clr-neutral-dark);
 }
 .page-header{
     text-align: center;
