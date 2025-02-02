@@ -176,6 +176,21 @@ article{
         }
     }
 }
+.mapset-creator{
+    padding: 0.3em;
+    align-items: center;
+    .mapset-creator-pfp{
+        border-radius: 0.3em;
+        height: 2em;
+        width: 2em;
+        box-shadow: 0.15em 0.15em var(--clr-neutral-light-2);
+    }
+    .mapset-creator-name{
+        margin-left: 0.6em;
+        font-size: var(--fs-font-125);
+        color: var(--clr-accent-300);
+    }
+}
 .mapsets{
     flex-wrap: wrap;
     justify-content: center;

@@ -103,8 +103,9 @@ async function createSetArticle(mapSet){
     </div>
     <!-- <a href="osu://s/${map.beatmapset_id}" class="mapset-download">Download!</a> -->
 </main>
-<footer>
-    <a class="mapset-creator" target="_blank" href="https://osu.ppy.sh/users/${map.creator_id}">${map.creator}</a>
+<footer class="mapset-creator list">
+    <img src="https://a.ppy.sh/${map.creator_id}" class="mapset-creator-pfp">
+    <a class="mapset-creator-name" target="_blank" href="https://osu.ppy.sh/users/${map.creator_id}">${map.creator}</a>
 </footer>`;
     const diffList = article.querySelector(`#${diffListID}`);
     mapSet.forEach(e =>{
