@@ -46,6 +46,12 @@ body{
     font-size: var(--fs-font-125);
     color: var(--clr-neutral-dark);
 }
+button{
+    font-family: Exo2, sans-serif;
+    background-color: var(--clr-accent-700);
+    border: var(--sz-border-width-1) solid var(--clr-neutral-dark);
+    border-radius: var(--sz-default-radius);
+}
 .page-header{
     text-align: center;
     background-color: var(--clr-accent-700);
