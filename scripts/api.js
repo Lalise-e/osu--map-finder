@@ -108,13 +108,15 @@ async function getBeatmaps(filters, count = 1, useDateSearch, mapper, mods = 0){
     })
 
     const mapSets = Array(count);
+    //I am sure this is not the best approach to keeping track of completed promises but it will have to do for now
     let complete = {};
     complete["number"] = 0;
-
-    let search = () => randomBeatmapSet(filters, i, mapSets, path, parameters, complete);
+    let search = index => randomBeatmapSet(filters, index, mapSets, path, parameters, complete);
+    if(useDateSearch)
+        search = index => dateSearchBeatmap(filters, index, mapSets, path, parameters, complete);
     for(let i = 0; i < mapSets.length; i++){
         const iCopy = i;
-        new Promise(() => randomBeatmapSet(filters, i, mapSets, path, parameters, complete));
+        new Promise(() => search(i));
     }
     while(count > complete["number"]){
         await new Promise(res => {setTimeout(res, 10)}); //waits 10ms as to not freeze the browser
@@ -148,6 +150,41 @@ async function randomBeatmapSet(filters, index, resultArray, path, parameters, c
     resultArray[index] = mapset;
     complete["number"]++;
 }
+async function dateSearchBeatmap(filters, index, resultArray, path, parameters, complete){
+    let maps = undefined;
+    const from = new Date("2007-10-06 "), to = new Date(Date.now());
+    let foundMap = false, match = "";
+    for(let attempt = 0; attempt < retries; attempt++){
+        const parmCopy = Array.from(parameters);
+        parmCopy.push(["since", formatTime(generateRandomDate(from, to))]);
+        parmCopy.push(["limit", "400"]);
+        maps = await get(path, parmCopy);
+        if(maps.length === 0)
+            continue;
+        for(let mapIndex = 0; mapIndex < maps.length; mapIndex++){
+            let mapPasses = true;
+            filters.forEach(filter => {
+                if(filter(maps[mapIndex]) === false)
+                    mapPasses = false;
+            })
+            if(!mapPasses)
+                continue;
+            attempt = retries;
+            match = maps[mapIndex].beatmapset_id;
+            foundMap = true;
+            break;
+        }
+    }
+    if(!foundMap){
+        resultArray[index] = [];
+        complete["number"]++;
+        return;
+    }
+    //This might display inacurate difficulty ratings for searches with mods
+    //The result wil be accurate but they might display incorrectly
+    resultArray[index] = await get(path, [["s", match]])
+    complete["number"]++;
+}
 function markDownload(mapsetID){
     if(downloads.indexOf(mapsetID) !== -1)
         return;
@@ -170,4 +207,14 @@ async function getUser(user){
 //both min and max are inclusive bounds.
 function randomInt(max, min){
     return Math.floor(Math.random() * (max - min - 1)) + min + 1;
+}
+//Thank you Borislav, https://bobbyhadz.com/blog/javascript-generate-random-date
+function generateRandomDate(from, to) {
+    return new Date(
+        from.getTime() +
+        Math.random() * (to.getTime() - from.getTime()),
+    );
+}
+function formatTime(date){
+    return `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()} ${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getSeconds()}`;
 }
