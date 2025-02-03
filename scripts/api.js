@@ -124,29 +124,29 @@ async function getBeatmaps(filters, count = 1, useDateSearch, mapper, mods = 0){
     return mapSets;
 }
 async function randomBeatmapSet(filters, index, resultArray, path, parameters, complete) {
-            let mapset = undefined;
-            for(let j = 0; j < retries; j++){
-                const parmCopy = Array.from(parameters);
-                parmCopy.push(["s", randomInt(maxBeatmapSetID, 1)]);
-                mapset = await get(path, parmCopy);
-                if(mapset.length === 0)
-                    continue;
-                let setPasses = false;
-                for(let mapIndex = 0; mapIndex < mapset.length; mapIndex++){
-                    let mapPasses = true;
-                    filters.forEach(filter =>{
-                        if(filter(mapset[mapIndex]) === false)
-                            mapPasses = false;
-                    })
-                    if(!mapPasses)
-                        continue;
-                    setPasses = true;
-                    j = retries;
-                    mapIndex = mapset.length;
-                }
-                if(!setPasses)
-                    mapset = [];
-            }
+    let mapset = undefined;
+    for(let j = 0; j < retries; j++){
+        const parmCopy = Array.from(parameters);
+        parmCopy.push(["s", randomInt(maxBeatmapSetID, 1)]);
+        mapset = await get(path, parmCopy);
+        if(mapset.length === 0)
+            continue;
+        let setPasses = false;
+        for(let mapIndex = 0; mapIndex < mapset.length; mapIndex++){
+            let mapPasses = true;
+            filters.forEach(filter =>{
+                if(filter(mapset[mapIndex]) === false)
+                    mapPasses = false;
+            })
+            if(!mapPasses)
+                continue;
+            setPasses = true;
+            j = retries;
+            mapIndex = mapset.length;
+        }
+        if(!setPasses)
+            mapset = [];
+    }
     resultArray[index] = mapset;
     complete["number"]++;
 }
