@@ -38,6 +38,8 @@ async function initialize() {
         if(maxBeatmapSetID < Number(map.beatmapset_id))
             maxBeatmapSetID = Number(map.beatmapset_id);
     });
+
+    //Ignore this, it doesn't do anything yet
     localStorage.setItem("maxID", maxBeatmapSetID);
     function conscructYearCompare(year){
         return async function(map) {
