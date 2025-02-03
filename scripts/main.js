@@ -174,5 +174,42 @@ async function createSetArticle(mapSet){
 
 initialize();
 
+//Field creations
+//The filter arg should be a function that will get passed a "values" object containing all the values of the field
+//In the case of a checkbox all of the options will be keys to a boolean
+//The return value should be a function that takes a map as seen here https://github.com/ppy/osu-api/wiki under /get_beatmaps response and then returns true/false
+//indicating whether or not that map passes that filter.
+createCheckBox("status", ["Ranked", "Loved", "Approved", "Qualified", "Pending", "WIP", "Graveyard"], values => {
+    return map => {
+        let status = "";
+        switch(map.approved){
+            case "4": //loved
+                status = "Loved";
+                break;
+            case "3":
+                status = "Qualified";
+                break;
+            case "2":
+                status = "Approved";
+                break;
+            case "1":
+                status = "Ranked";
+                break;
+            case "0":
+                status = "Pending";
+                break;
+            case "-1":
+                status = "WIP";
+                break;
+            case "-2":
+                status = "Graveyard";
+                break;
+            default:
+                return false;
+        }
+        return values[status];
+    }
+})
+
 //Add events
 searchForm.addEventListener('submit', searchSubmit);
