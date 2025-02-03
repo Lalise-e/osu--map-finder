@@ -30,7 +30,7 @@ async function searchSubmit(e){
             useDateSearch = false;
     })
 
-    const mapSets = await getBeatmaps(filters, 5);
+    const mapSets = await getBeatmaps(filters, 10, useDateSearch);
     mapSets.forEach(e =>{
         createSetArticle(e);
     })
