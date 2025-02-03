@@ -94,11 +94,18 @@ async function binarySetSearch(compare, min = 1, max = maxBeatmapSetID) {
 }
 
 //map functions
-async function getBeatmaps(filters, count = 1, mapper, mode, mods = 0){
+async function getBeatmaps(filters, count = 1, useDateSearch, mapper, mods = 0){
     if(typeof(mods) === "string")
         mods = modStringToInt(mods);
     const parameters = [];
     const path = `${apiEndpoint}/get_beatmaps`;
+
+    //Checks for already downloaded maps
+    filters.push(map => {
+        if(downloads.indexOf(map.beatmapset_id) === -1)
+            return true;
+        return false;
+    })
 
     const mapSets = Array(count);
     let complete = 0;
@@ -110,8 +117,23 @@ async function getBeatmaps(filters, count = 1, mapper, mode, mods = 0){
                 const parmCopy = Array.from(parameters);
                 parmCopy.push(["s", randomInt(maxBeatmapSetID, 1)]);
                 mapset = await get(path, parmCopy);
-                if(mapset.length > 0)
+                if(mapset.length === 0)
+                    continue;
+                let setPasses = false;
+                for(let mapIndex = 0; mapIndex < mapset.length; mapIndex++){
+                    let mapPasses = true;
+                    filters.forEach(filter =>{
+                        if(filter(mapset[mapIndex]) === false)
+                            mapPasses = false;
+                    })
+                    if(!mapPasses)
+                        continue;
+                    setPasses = true;
                     j = retries;
+                    mapIndex = mapset.length;
+                }
+                if(!setPasses)
+                    mapset = [];
             }
             mapSets[iCopy] = mapset;
             // console.log(mapSets);
