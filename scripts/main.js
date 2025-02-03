@@ -43,6 +43,11 @@ async function downloadMap(beatmapsetID){
     markDownload(beatmapsetID);
     window.open(`osu://dl/${beatmapsetID}`, "_self")
 }
+async function downloadAll(){
+    activeSets.forEach(async mapID => {
+        await downloadMap(mapID);
+    })
+}
 
 //Functions to create form fields, the fieldName is the name that will be displayed and used in html
 //filter is a function that will return true or false depending on whether a map passes it or not.
@@ -217,3 +222,4 @@ createCheckBox("status", ["Ranked", "Loved", "Approved", "Qualified", "Pending",
 
 //Add events
 searchForm.addEventListener('submit', searchSubmit);
+document.querySelector("#download-all").addEventListener("click", downloadAll);
