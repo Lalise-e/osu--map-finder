@@ -28,7 +28,6 @@ async function initialize() {
     //We store maxBeatmapSetID so if you were hit search before this get requests finish you won't get weird results
     maxBeatmapSetID = Number(localStorage.getItem("maxID"));
     downloads = localStorage.getItem("downloads");
-    console.log(downloads);
     if(downloads === null)
         downloads = [];
     else
