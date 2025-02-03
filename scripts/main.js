@@ -2,7 +2,7 @@ import { getBeatmaps, initialize, markDownload } from "./api.js";
 import { MODE_CATCH, MODE_MANIA, MODE_OSU, MODE_TAIKO } from "./modeIcons.js";
 const searchForm = document.querySelector("#search-form");
 const resultList = document.querySelector("#result-list");
-
+let activeSets = [];
 //Events
 async function searchSubmit(e){
     e.preventDefault();
@@ -18,7 +18,7 @@ async function searchSubmit(e){
             continue;
         filters.push(node.filter(node.values()));
     }
-
+    
     //Ranked and loved statuses allow us to use the "since" parameter to get more efficient searches
     //That is why we have this here
     let useDateSearch = false;
@@ -29,10 +29,14 @@ async function searchSubmit(e){
         else if (statusFields[field])
             useDateSearch = false;
     })
-
+    
     const mapSets = await getBeatmaps(filters, 10, useDateSearch);
+    activeSets = [];
+    resultList.innerHTML = "";
     mapSets.forEach(e =>{
         createSetArticle(e);
+        if(e.length > 0)
+            activeSets.push(e[0].beatmapset_id);
     })
 }
 async function downloadMap(beatmapsetID){
