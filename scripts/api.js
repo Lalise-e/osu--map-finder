@@ -108,10 +108,20 @@ async function getBeatmaps(filters, count = 1, useDateSearch, mapper, mods = 0){
     })
 
     const mapSets = Array(count);
-    let complete = 0;
+    let complete = {};
+    complete["number"] = 0;
+
+    let search = () => randomBeatmapSet(filters, i, mapSets, path, parameters, complete);
     for(let i = 0; i < mapSets.length; i++){
         const iCopy = i;
-        new Promise(async () => {
+        new Promise(() => randomBeatmapSet(filters, i, mapSets, path, parameters, complete));
+    }
+    while(count > complete["number"]){
+        await new Promise(res => {setTimeout(res, 10)}); //waits 10ms as to not freeze the browser
+    }
+    return mapSets;
+}
+async function randomBeatmapSet(filters, index, resultArray, path, parameters, complete) {
             let mapset = undefined;
             for(let j = 0; j < retries; j++){
                 const parmCopy = Array.from(parameters);
@@ -135,15 +145,8 @@ async function getBeatmaps(filters, count = 1, useDateSearch, mapper, mods = 0){
                 if(!setPasses)
                     mapset = [];
             }
-            mapSets[iCopy] = mapset;
-            // console.log(mapSets);
-            complete++;
-        });
-    }
-    while(count > complete){
-        await new Promise(res => {setTimeout(res, 10)}); //waits 10ms as to not freeze the browser
-    }
-    return mapSets;
+    resultArray[index] = mapset;
+    complete["number"]++;
 }
 function markDownload(mapsetID){
     if(downloads.indexOf(mapsetID) !== -1)
