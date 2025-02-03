@@ -6,7 +6,31 @@ const resultList = document.querySelector("#result-list");
 //Events
 async function searchSubmit(e){
     e.preventDefault();
-    const mapSets = await getBeatmaps([], 2);
+    const filters = [];
+    for(let i = 0; i < searchForm.length; i++){
+        //This bit might be a hard to follow but we go through each fieldset and build a filter.
+        //We pass it node.values() which is a function that generates an object containing the values
+        //of the fieldset. This function should be created in the applicable createX function unless a certain someone forgets to.
+        const node = searchForm.children[i];
+        if(node === undefined)
+            continue;
+        if(node.nodeName !== "FIELDSET")
+            continue;
+        filters.push(node.filter(node.values()));
+    }
+
+    //Ranked and loved statuses allow us to use the "since" parameter to get more efficient searches
+    //That is why we have this here
+    let useDateSearch = false;
+    const statusFields = document.querySelector("#form-checkbox-status").values();
+    Object.keys(statusFields).forEach((field, index) =>{
+        if((index < 2) && (statusFields[field]))
+            useDateSearch = true
+        else if (statusFields[field])
+            useDateSearch = false;
+    })
+
+    const mapSets = await getBeatmaps(filters, 5);
     mapSets.forEach(e =>{
         createSetArticle(e);
     })
@@ -27,7 +51,9 @@ function createRadio(fieldName, options, filter){
 function createCheckBox(fieldName, options, filter){
     //Options should be a 1 dimensional array of strings where each item is the name of a checkbox
     fieldName = `form-checkbox-${fieldName}` 
-    const field = createFieldset(fieldName)
+    const field = createFieldset(fieldName);
+    field["filter"] = filter;
+    field["checkBoxes"] = [];
     options.forEach(element => {
         const name = `${fieldName}-${element}`
         const label = document.createElement("label");
@@ -37,9 +63,18 @@ function createCheckBox(fieldName, options, filter){
         checkbox.setAttribute("type", "checkbox")
         checkbox.setAttribute("id", `${name}`)
         checkbox.setAttribute("name", `${name}`);
+        checkbox["valueName"] = element;
         field.appendChild(label);
         field.appendChild(checkbox);
+        field["checkBoxes"].push(checkbox);
     });
+    field["values"] = () =>{
+        const result = {};
+        field["checkBoxes"].forEach(element => {
+            result[element["valueName"]] = element.checked;
+        })
+        return result;
+    }
     searchForm.appendChild(field);
 }
 function createTextBox(fieldName, filter){
