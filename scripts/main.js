@@ -192,7 +192,7 @@ createCheckBox("status", ["Ranked", "Loved", "Approved", "Qualified", "Pending",
     return map => {
         let status = "";
         switch(map.approved){
-            case "4": //loved
+            case "4":
                 status = "Loved";
                 break;
             case "3":
